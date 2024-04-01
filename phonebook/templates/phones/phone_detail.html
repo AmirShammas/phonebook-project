@@ -1,0 +1,20 @@
+{% extends "_base.html" %}
+
+{% block title %}
+    Phone-Details
+{% endblock title %}
+
+{% block content %}
+    <div>
+        <h2>id: {{ phone.id }}</h2>
+        <h2>first_name: {{ phone.first_name }}</h2>
+        <h2>last_name: {{ phone.last_name }}</h2>
+        <h2>mobile: {{ phone.mobile }}</h2>
+        <h2>city: {{ phone.city }}</h2>
+        <hr/><hr/>
+        <h2><a href="">EDIT</a></h2>
+        <hr/><hr/>
+        <h2><a href="">DELETE</a></h2>
+
+    </div>
+{% endblock content %}
