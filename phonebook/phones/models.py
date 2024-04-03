@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MinLengthValidator
+from django.conf import settings
 
 
 class MyBaseModel(models.Model):
@@ -49,6 +50,8 @@ class Phone(MyBaseModel):
                               blank=False, verbose_name="Mobile", validators=[MinLengthValidator(11)])
     city = models.ForeignKey(City, null=False, blank=False,
                              on_delete=models.CASCADE, related_name="phones", verbose_name="City")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, default=1,
+                               on_delete=models.CASCADE, related_name="phones", verbose_name="Author")
 
     class Meta:
         verbose_name = "Phone"

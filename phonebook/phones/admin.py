@@ -7,7 +7,7 @@ class CityAdmin(admin.ModelAdmin):
 
 
 class PhoneAdmin(admin.ModelAdmin):
-    list_display = ("id", "first_name", "last_name",
+    list_display = ("id", "author", "first_name", "last_name",
                     "mobile", "city", "is_active",)
 
 
