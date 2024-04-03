@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
@@ -14,6 +15,18 @@ def superuser_required(view_func):
             return HttpResponseForbidden(message)
         return view_func(request, *args, **kwargs)
     return decorated_view_func
+
+
+class SuperuserPhoneForm(forms.ModelForm):
+    class Meta:
+        model = Phone
+        fields = ["first_name", "last_name", "mobile", "city", "is_active"]
+
+
+class RegularUserPhoneForm(forms.ModelForm):
+    class Meta:
+        model = Phone
+        fields = ["first_name", "last_name", "mobile", "city"]
 
 
 class HomePageView(TemplateView):
@@ -48,6 +61,11 @@ class PhoneUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "phones/phone_edit.html"
     fields = ["first_name", "last_name", "mobile", "city"]
     login_url = "login"
+
+    def get_form_class(self):
+        if self.request.user.is_superuser:
+            return SuperuserPhoneForm
+        return RegularUserPhoneForm
 
 
 @method_decorator(superuser_required, name='dispatch')

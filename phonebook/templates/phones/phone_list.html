@@ -8,9 +8,18 @@
     <h3><a href="{% url 'phone_new' %}">+ NEW</a></h3>
     <hr/><hr/>
     {% for phone in phone_list %}
+        {% if user.is_superuser %}
         <div>
-            <h2><a href="{% url 'phone_detail' phone.pk %}">{{ phone.id }}</a> => {{ phone.first_name }} => {{ phone.last_name }} => {{ phone.mobile }} => {{ phone.city }}</h2>
+            <h2><a href="{% url 'phone_detail' phone.pk %}">{{ phone.id }}</a> => {{ phone.first_name }} => {{ phone.last_name }} => {{ phone.mobile }} => {{ phone.city }} => {{ phone.is_active }}</h2>
             <hr/>
         </div>
+        {% else %}
+            {% if phone.is_active %}
+            <div>
+                <h2><a href="{% url 'phone_detail' phone.pk %}">{{ phone.id }}</a> => {{ phone.first_name }} => {{ phone.last_name }} => {{ phone.mobile }} => {{ phone.city }}</h2>
+                <hr/>
+            </div>
+            {% endif %}
+        {% endif %}
     {% endfor %}
 {% endblock content %}
