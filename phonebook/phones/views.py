@@ -39,12 +39,28 @@ class PhoneListView(LoginRequiredMixin, ListView):
     template_name = "phones/phone_list.html"
     login_url = "login"
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return Phone.objects.all()
+        else:
+            return Phone.objects.filter(author=user)
+
 
 class PhoneDetailView(LoginRequiredMixin, DetailView):
     model = Phone
     context_object_name = "phone"
     template_name = "phones/phone_detail.html"
     login_url = "login"
+
+    def dispatch(self, request, *args, **kwargs):
+        phone = self.get_object()
+        user = request.user
+        if user.is_superuser or phone.author == user:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            message = "<h1>Access Denied !! Back to <a href='/'>home</a> page !!</h1>"
+            return HttpResponseForbidden(message)
 
 
 class PhoneCreateView(LoginRequiredMixin, CreateView):
