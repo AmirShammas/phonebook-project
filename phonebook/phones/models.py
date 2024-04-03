@@ -59,4 +59,5 @@ class Phone(MyBaseModel):
         return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
-        return reverse("phone_detail", kwargs={"pk": self.pk})
+        # return reverse("phone_detail", kwargs={"pk": self.pk})
+        return reverse("phone_list")
