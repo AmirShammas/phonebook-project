@@ -54,6 +54,10 @@ class PhoneCreateView(LoginRequiredMixin, CreateView):
     fields = ["first_name", "last_name", "mobile", "city"]
     login_url = "login"
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
 
 class PhoneUpdateView(LoginRequiredMixin, UpdateView):
     model = Phone
