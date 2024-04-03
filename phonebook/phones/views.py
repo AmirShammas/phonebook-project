@@ -87,6 +87,15 @@ class PhoneUpdateView(LoginRequiredMixin, UpdateView):
             return SuperuserPhoneForm
         return RegularUserPhoneForm
 
+    def dispatch(self, request, *args, **kwargs):
+        phone = self.get_object()
+        user = request.user
+        if user.is_superuser or phone.author == user:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            message = "<h1>Access Denied !! Back to <a href='/'>home</a> page !!</h1>"
+            return HttpResponseForbidden(message)
+
 
 @method_decorator(superuser_required, name='dispatch')
 class PhoneDeleteView(LoginRequiredMixin, DeleteView):
