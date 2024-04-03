@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 def superuser_required(view_func):
     def decorated_view_func(request, *args, **kwargs):
         if not request.user.is_superuser:
-            message = "<h1>You are not Admin !! Back to <a href='/'>home</a> page !!</h1>"
+            message = "<h1>Access Denied !! Back to <a href='/'>home</a> page !!</h1>"
             return HttpResponseForbidden(message)
         return view_func(request, *args, **kwargs)
     return decorated_view_func
