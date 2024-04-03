@@ -12,10 +12,12 @@
         <h2>mobile: {{ phone.mobile }}</h2>
         <h2>city: {{ phone.city }}</h2>
         <hr/>
-        <h3><a href="">EDIT</a></h3>
+        <h3><a href="{% url 'phone_edit' phone.pk %}">EDIT</a></h3>
         <hr/>
-        <h3><a href="">DELETE</a></h3>
-        <hr/>
+        {% if user.is_superuser %}
+            <h3><a href="{% url 'phone_delete' phone.pk %}">DELETE</a></h3>
+            <hr/>
+        {% endif %}
         <h3>Back to <a href="{% url 'phone_list' %}">Phone List</a> !!</h3>
 
     </div>

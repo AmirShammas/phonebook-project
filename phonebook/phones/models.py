@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+from django.core.validators import MinLengthValidator
 
 
 class MyBaseModel(models.Model):
@@ -44,7 +46,7 @@ class Phone(MyBaseModel):
     last_name = models.CharField(max_length=250, null=False,
                                  blank=False, verbose_name="LastName")
     mobile = models.CharField(max_length=11, null=False,
-                              blank=False, verbose_name="Mobile")
+                              blank=False, verbose_name="Mobile", validators=[MinLengthValidator(11)])
     city = models.ForeignKey(City, null=False, blank=False,
                              on_delete=models.CASCADE, related_name="phones", verbose_name="City")
 
@@ -55,3 +57,6 @@ class Phone(MyBaseModel):
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
+
+    def get_absolute_url(self):
+        return reverse("phone_detail", kwargs={"pk": self.pk})

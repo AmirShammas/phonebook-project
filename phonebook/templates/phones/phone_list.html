@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block content %}
-    <h3><a href="">+ NEW</a></h3>
+    <h3><a href="{% url 'phone_new' %}">+ NEW</a></h3>
     <hr/><hr/>
     {% for phone in phone_list %}
         <div>
