@@ -59,3 +59,16 @@ Only the super-user has access to all endpoints.
 `http://localhost:8000/phone/1/edit/`  => Edit the phone which `id=1`.
 
 `http://localhost:8000/phone/1/delete/`  => Delete the phone which `id=1`.
+
+### Task List
+
+- [x] phones
+- [ ] admin panel
+- [ ] cities
+- [ ] users
+- [ ] filter
+- [ ] search
+- [ ] pagination
+- [ ] image upload
+- [ ] rss feed
+- [ ] user profile
